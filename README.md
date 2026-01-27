@@ -55,15 +55,3 @@ func (google) Marshal(v any) ([]byte, error) {
 	}
 }
 ```
-
-Package `typed` contains generic interfaces for typed codecs.
-
-```go
-type Message struct {
-	Name string `json:"name"`
-}
-
-var codec typed.Codec[Message]
-
-codec = typed.Cast[Message](godec.Json)
-```
