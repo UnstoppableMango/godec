@@ -6,13 +6,13 @@ import (
 	"github.com/unmango/go/codec"
 )
 
-var Default codec.Codec = StdLib
+var Default = StdLib
 
-func NewDecoder(r io.Reader) codec.Decoder {
+func NewDecoder(r io.Reader) codec.Decoder[any] {
 	return StdLib.NewDecoder(r)
 }
 
-func NewEncoder(w io.Writer) codec.Encoder {
+func NewEncoder(w io.Writer) codec.Encoder[any] {
 	return StdLib.NewEncoder(w)
 }
 

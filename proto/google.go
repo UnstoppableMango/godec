@@ -2,7 +2,9 @@ package proto
 
 import (
 	"fmt"
+	"io"
 
+	"github.com/unmango/go/codec"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -10,6 +12,14 @@ type google struct{}
 
 func (google) Name() string {
 	return "google/protobuf"
+}
+
+func (google) NewDecoder(r io.Reader) codec.Decoder[any] {
+	panic("google/protobuf does not support streaming decoding")
+}
+
+func (google) NewEncoder(w io.Writer) codec.Encoder[any] {
+	panic("google/protobuf does not support streaming encoding")
 }
 
 func (google) Marshal(v any) ([]byte, error) {

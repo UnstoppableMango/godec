@@ -3,6 +3,8 @@ package json
 import (
 	"encoding/json"
 	"io"
+
+	"github.com/unmango/go/codec"
 )
 
 var StdLib = stdlib{}
@@ -13,11 +15,11 @@ func (stdlib) Name() string {
 	return "encoding/json"
 }
 
-func (stdlib) NewDecoder(r io.Reader) *json.Decoder {
+func (stdlib) NewDecoder(r io.Reader) codec.Decoder[any] {
 	return json.NewDecoder(r)
 }
 
-func (stdlib) NewEncoder(w io.Writer) *json.Encoder {
+func (stdlib) NewEncoder(w io.Writer) codec.Encoder[any] {
 	return json.NewEncoder(w)
 }
 

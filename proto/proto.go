@@ -1,10 +1,6 @@
 package proto
 
-import (
-	"github.com/unmango/go/codec"
-)
-
-var Default codec.Codec = Google
+var Default = Google
 
 func Marshal(v any) ([]byte, error) {
 	return Google.Marshal(v)

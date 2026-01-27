@@ -7,7 +7,10 @@ import (
 	"github.com/unstoppablemango/godec/yaml"
 )
 
-type Codec = codec.Codec
+type Codec interface {
+	codec.Any
+	Name() string
+}
 
 var (
 	Json  Codec = json.Default
