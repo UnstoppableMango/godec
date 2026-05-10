@@ -6,6 +6,8 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+var Google = google{}
+
 type google struct{}
 
 func (google) Name() string {
@@ -27,5 +29,3 @@ func (google) Unmarshal(data []byte, v any) error {
 		return fmt.Errorf("not a proto.Message: %#v", v)
 	}
 }
-
-var Google = google{}
