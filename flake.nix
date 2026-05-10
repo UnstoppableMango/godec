@@ -29,6 +29,7 @@
           };
 
           treefmt = {
+            programs.actionlint.enable = true;
             programs.nixfmt.enable = true;
             programs.gofmt.enable = true;
           };
