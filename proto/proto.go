@@ -4,7 +4,7 @@ import (
 	"github.com/unmango/go/codec"
 )
 
-var Default codec.Codec = Google
+var Default codec.Marshaler[any] = Google
 
 func Marshal(v any) ([]byte, error) {
 	return Google.Marshal(v)

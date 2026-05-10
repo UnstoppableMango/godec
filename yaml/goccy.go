@@ -4,6 +4,7 @@ import (
 	"io"
 
 	"github.com/goccy/go-yaml"
+	"github.com/unmango/go/codec"
 )
 
 var Goccy = goccy{}
@@ -14,11 +15,11 @@ func (goccy) Name() string {
 	return "goccy/go-yaml"
 }
 
-func (goccy) NewDecoder(r io.Reader) *yaml.Decoder {
+func (goccy) NewDecoder(r io.Reader) codec.Decoder[any] {
 	return yaml.NewDecoder(r)
 }
 
-func (goccy) NewEncoder(w io.Writer) *yaml.Encoder {
+func (goccy) NewEncoder(w io.Writer) codec.Encoder[any] {
 	return yaml.NewEncoder(w)
 }
 
