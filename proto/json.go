@@ -2,7 +2,10 @@ package proto
 
 import (
 	"fmt"
+	"io"
 
+	"github.com/unmango/go/codec"
+	"github.com/unstoppablemango/godec/internal"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
@@ -29,4 +32,12 @@ func (json) Unmarshal(data []byte, v any) error {
 	} else {
 		return fmt.Errorf("not a proto.Message: %#v", v)
 	}
+}
+
+func (m json) NewDecoder(r io.Reader) codec.Decoder[any] {
+	return internal.ReadAll(r, m)
+}
+
+func (m json) NewEncoder(w io.Writer) codec.Encoder[any] {
+	return internal.WriteAll(w, m)
 }

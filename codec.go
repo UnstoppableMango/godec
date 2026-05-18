@@ -10,7 +10,7 @@ import (
 type Codec = codec.Any
 
 var (
-	Json  codec.Any            = json.Default
-	Yaml  codec.Any            = yaml.Default
-	Proto codec.Marshaler[any] = proto.Default
+	Json  codec.Any = json.Default
+	Yaml  codec.Any = yaml.Default
+	Proto codec.Any = proto.Default
 )
