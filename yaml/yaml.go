@@ -6,7 +6,7 @@ import (
 	"github.com/unmango/go/codec"
 )
 
-var Default codec.Any = Goccy
+var Default = Goccy
 
 func NewDecoder(r io.Reader) codec.Decoder[any] {
 	return Goccy.NewDecoder(r)
