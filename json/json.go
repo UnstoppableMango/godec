@@ -8,18 +8,18 @@ import (
 
 var Default = StdLib
 
-func NewDecoder(r io.Reader) codec.Decoder[any] {
-	return StdLib.NewDecoder(r)
+func NewDecoder[T any](r io.Reader) codec.Decoder[T] {
+	return NewStdlib[T]().NewDecoder(r)
 }
 
-func NewEncoder(w io.Writer) codec.Encoder[any] {
-	return StdLib.NewEncoder(w)
+func NewEncoder[T any](w io.Writer) codec.Encoder[T] {
+	return NewStdlib[T]().NewEncoder(w)
 }
 
-func Marshal(v any) ([]byte, error) {
-	return StdLib.Marshal(v)
+func Marshal[T any](v T) ([]byte, error) {
+	return NewStdlib[T]().Marshal(v)
 }
 
-func Unmarshal(data []byte, v any) error {
-	return StdLib.Unmarshal(data, v)
+func Unmarshal[T any](data []byte, v T) error {
+	return NewStdlib[T]().Unmarshal(data, v)
 }

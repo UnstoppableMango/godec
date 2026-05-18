@@ -1,43 +1,37 @@
 package proto
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/unmango/go/codec"
 	"github.com/unstoppablemango/godec/internal"
 	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/proto"
 )
 
-var Json = json{}
+var Json = NewJson[Message]()
 
-type json struct{}
+type json[T Message] struct{}
 
-func (json) Name() string {
+func NewJson[T Message]() json[T] {
+	return json[T]{}
+}
+
+func (json[T]) Name() string {
 	return "google/protojson"
 }
 
-func (json) Marshal(v any) ([]byte, error) {
-	if msg, ok := v.(proto.Message); ok {
-		return protojson.Marshal(msg)
-	} else {
-		return nil, fmt.Errorf("not a proto.Message: %#v", v)
-	}
+func (json[T]) Marshal(v T) ([]byte, error) {
+	return protojson.Marshal(v)
 }
 
-func (json) Unmarshal(data []byte, v any) error {
-	if msg, ok := v.(proto.Message); ok {
-		return protojson.Unmarshal(data, msg)
-	} else {
-		return fmt.Errorf("not a proto.Message: %#v", v)
-	}
+func (json[T]) Unmarshal(data []byte, v T) error {
+	return protojson.Unmarshal(data, v)
 }
 
-func (m json) NewDecoder(r io.Reader) codec.Decoder[any] {
+func (m json[T]) NewDecoder(r io.Reader) codec.Decoder[T] {
 	return internal.ReadAll(r, m)
 }
 
-func (m json) NewEncoder(w io.Writer) codec.Encoder[any] {
+func (m json[T]) NewEncoder(w io.Writer) codec.Encoder[T] {
 	return internal.WriteAll(w, m)
 }
