@@ -5,28 +5,33 @@ import (
 	"io"
 
 	"github.com/unmango/go/codec"
+	"github.com/unstoppablemango/godec/internal"
 )
 
-var StdLib = stdlib{}
+var StdLib = NewStdlib[any]()
 
-type stdlib struct{}
+type stdlib[T any] struct{}
 
-func (stdlib) Name() string {
+func NewStdlib[T any]() stdlib[T] {
+	return stdlib[T]{}
+}
+
+func (stdlib[T]) Name() string {
 	return "encoding/json"
 }
 
-func (stdlib) NewDecoder(r io.Reader) codec.Decoder[any] {
-	return json.NewDecoder(r)
+func (stdlib[T]) NewDecoder(r io.Reader) codec.Decoder[T] {
+	return internal.AnyD[T](json.NewDecoder(r))
 }
 
-func (stdlib) NewEncoder(w io.Writer) codec.Encoder[any] {
-	return json.NewEncoder(w)
+func (stdlib[T]) NewEncoder(w io.Writer) codec.Encoder[T] {
+	return internal.AnyE[T](json.NewEncoder(w))
 }
 
-func (stdlib) Marshal(v any) ([]byte, error) {
+func (stdlib[T]) Marshal(v T) ([]byte, error) {
 	return json.Marshal(v)
 }
 
-func (stdlib) Unmarshal(data []byte, v any) error {
+func (stdlib[T]) Unmarshal(data []byte, v T) error {
 	return json.Unmarshal(data, v)
 }

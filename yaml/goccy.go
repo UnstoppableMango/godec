@@ -5,28 +5,33 @@ import (
 
 	"github.com/goccy/go-yaml"
 	"github.com/unmango/go/codec"
+	"github.com/unstoppablemango/godec/internal"
 )
 
-var Goccy = goccy{}
+var Goccy = NewGoccy[any]()
 
-type goccy struct{}
+type goccy[T any] struct{}
 
-func (goccy) Name() string {
+func NewGoccy[T any]() goccy[T] {
+	return goccy[T]{}
+}
+
+func (goccy[T]) Name() string {
 	return "goccy/go-yaml"
 }
 
-func (goccy) NewDecoder(r io.Reader) codec.Decoder[any] {
-	return yaml.NewDecoder(r)
+func (goccy[T]) NewDecoder(r io.Reader) codec.Decoder[T] {
+	return internal.AnyD[T](yaml.NewDecoder(r))
 }
 
-func (goccy) NewEncoder(w io.Writer) codec.Encoder[any] {
-	return yaml.NewEncoder(w)
+func (goccy[T]) NewEncoder(w io.Writer) codec.Encoder[T] {
+	return internal.AnyE[T](yaml.NewEncoder(w))
 }
 
-func (goccy) Marshal(v any) ([]byte, error) {
+func (goccy[T]) Marshal(v T) ([]byte, error) {
 	return yaml.Marshal(v)
 }
 
-func (goccy) Unmarshal(data []byte, v any) error {
+func (goccy[T]) Unmarshal(data []byte, v T) error {
 	return yaml.Unmarshal(data, v)
 }

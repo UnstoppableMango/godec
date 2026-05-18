@@ -1,11 +1,15 @@
 package proto
 
+import "google.golang.org/protobuf/proto"
+
 var Default = Google
 
-func Marshal(v any) ([]byte, error) {
+type Message = proto.Message
+
+func Marshal[T Message](v T) ([]byte, error) {
 	return Google.Marshal(v)
 }
 
-func Unmarshal(data []byte, v any) error {
+func Unmarshal[T Message](data []byte, v T) error {
 	return Google.Unmarshal(data, v)
 }
