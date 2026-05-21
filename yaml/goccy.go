@@ -23,12 +23,16 @@ func (goccy[T]) Name() string {
 	return "goccy/go-yaml"
 }
 
-func (goccy[T]) NewDecoder(r io.Reader) codec.Decoder[T] {
-	return internal.AnyD[T](yaml.NewDecoder(r))
+func (c goccy[T]) NewDecoder(r io.Reader) codec.Decoder[T] {
+	return internal.AnyD[T](
+		yaml.NewDecoder(r, c.dec...),
+	)
 }
 
-func (goccy[T]) NewEncoder(w io.Writer) codec.Encoder[T] {
-	return internal.AnyE[T](yaml.NewEncoder(w))
+func (c goccy[T]) NewEncoder(w io.Writer) codec.Encoder[T] {
+	return internal.AnyE[T](
+		yaml.NewEncoder(w, c.enc...),
+	)
 }
 
 func (goccy[T]) Marshal(v T) ([]byte, error) {
