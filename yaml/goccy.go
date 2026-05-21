@@ -10,7 +10,10 @@ import (
 
 var Goccy = NewGoccy[any]()
 
-type goccy[T any] struct{}
+type goccy[T any] struct {
+	dec []yaml.DecodeOption
+	enc []yaml.EncodeOption
+}
 
 func NewGoccy[T any]() goccy[T] {
 	return goccy[T]{}
@@ -34,4 +37,18 @@ func (goccy[T]) Marshal(v T) ([]byte, error) {
 
 func (goccy[T]) Unmarshal(data []byte, v T) error {
 	return yaml.Unmarshal(data, v)
+}
+
+func (c goccy[T]) WithDecode(options ...yaml.DecodeOption) goccy[T] {
+	return goccy[T]{
+		dec: append(c.dec, options...),
+		enc: c.enc,
+	}
+}
+
+func (c goccy[T]) WithEncode(options ...yaml.EncodeOption) goccy[T] {
+	return goccy[T]{
+		dec: c.dec,
+		enc: append(c.enc, options...),
+	}
 }
