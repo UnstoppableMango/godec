@@ -12,3 +12,5 @@ github.com/unmango/go v0.16.5 h1:7H/lYrOgQDDk+/SKfkw8YoKtlJQJEIwgOiweiRRXdDE=
 github.com/unmango/go v0.16.5/go.mod h1:IYXuCtV5o1Y/QNG59aP8QjDd9+iY91u/3aCHW3gpH8U=
 google.golang.org/protobuf v1.36.11 h1:fV6ZwhNocDyBLK0dj+fg8ektcVegBBuEolpbTQyBNVE=
 google.golang.org/protobuf v1.36.11/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
+google.golang.org/protobuf v1.36.12 h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=
+google.golang.org/protobuf v1.36.12/go.mod h1:HTf+CrKn2C3g5S8VImy6tdcUvCska2kB7j23XfzDpco=
