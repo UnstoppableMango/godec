@@ -1,5 +1,7 @@
 # Godec
 
+[![Hercules CI](https://hercules-ci.com/api/v1/site/github/account/UnstoppableMango/project/godec/badge)](https://hercules-ci.com/github/UnstoppableMango/godec)
+
 Codec libraries as values.
 
 ## Usage
